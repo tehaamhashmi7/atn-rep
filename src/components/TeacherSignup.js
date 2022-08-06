@@ -1,23 +1,24 @@
 import React, {useState} from 'react'
 import {useNavigate, Link} from 'react-router-dom'
 
-function TeacherLogin() {
+function TeacherSignup() {
+
     let navigate = useNavigate()
 
-    const [credentials, setCredentials] = useState({email: "", password: ""})
+    const [credentials, setCredentials] = useState({name: "", email: "", password: "", cpassword: ""})
 
     const onChange = (event) => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
-    }
+    } 
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch('http://localhost:1000/api/teacher/login', {
+        const response = await fetch('http://localhost:1000/api/student/newStudent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: credentials.email, password: credentials.password})
+            body: JSON.stringify({name: credentials.name ,email: credentials.email, password: credentials.password})
         })
         const json = await response.json()
         console.log(json)
@@ -32,10 +33,24 @@ function TeacherLogin() {
         }
     }
 
+
   return (
-    <div className="container">
-    <h1>Teacher Login</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='container'>
+        <h1>Teacher Sign up</h1>
+        <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            name="name"
+            value={credentials.name}
+            onChange = {onChange}
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
@@ -66,13 +81,27 @@ function TeacherLogin() {
             onChange = {onChange}
           />
         </div>
+        <div>
+        {credentials.password !== credentials.cpassword && <h5 style={{color: "red"}}>Passwords do not match</h5>}
+        <label htmlFor="cpassword" className="form-label">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="cpassword"
+            name="cpassword"
+            value={credentials.cpassword}
+            onChange = {onChange}
+          />
+        </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
-      <div><span><h4>Not Registered? <Link to={'/teacher/signup'}>Signup here</Link></h4></span></div>
+      <div><span><h4>Already Registered? <Link to={'/teacher/login'}>Login here</Link></h4></span></div>
     </div>
-  );
+  )
 }
 
-export default TeacherLogin
+export default TeacherSignup

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 
 function StudentLogin() {
 
@@ -70,6 +70,7 @@ function StudentLogin() {
           Submit
         </button>
       </form>
+      <div><span><h4>Not Registered? <Link to={'/student/signup'}>Signup here</Link></h4></span></div>
     </div>
   );
 }

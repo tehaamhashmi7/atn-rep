@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function Notice() {
   return (
@@ -8,7 +9,9 @@ function Notice() {
             <li><h4>School will remain closed on 10th August</h4></li>
             <li><h4>Forms for Mths Olympiad are available.</h4></li>
         </ul>
+      
     </div>
+    
   )
 }
 
